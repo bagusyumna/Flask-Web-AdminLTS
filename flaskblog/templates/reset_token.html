@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}    
+<div class="col-md-3"></div>
+<div class="col-md-9">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><b>Admin</b>LTE</a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="input-group mb-3">
+                        {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-md is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% else %} 
+                            {{ form.password(class="form-control form-control-md", placeholder="Password") }}   
+                        {% endif %}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        {% if form.confirm_password.errors %}
+                            {{ form.confirm_password(class="form-control form-control-md is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.confirm_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %} 
+                            {{ form.confirm_password(class="form-control form-control-md", placeholder="Confirm Password") }}   
+                        {% endif %}
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.submit(class="btn btn-primary btn-block") }}
+                        </div>
+                    <!-- /.col -->
+                    </div>        
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

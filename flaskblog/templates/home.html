@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}    
+<div class="col-md-12">
+    <div class="timeline">    
+    {% for post in posts.items %}
+        <div>
+            <img class="img-circle" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}" width="30" height="30" style="margin-left: 18px; margin-top: -10px;">
+            <div class="timeline-item">
+                <span class="time"><i class="fas fa-clock"></i>{{ post.date_posted.strftime(' %Y-%m-%d') }}</span>
+                <h3 class="timeline-header"><a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }} : </a>{{ post.title }}</h3>
+                <div class="timeline-body">{{ post.content|safe }}</div>
+                <div class="timeline-footer">
+                    <a class="btn btn-primary btn-sm" href="{{ url_for('posts.post', post_id=post.id) }}">Detail</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div>
+        <i class="fas fa-envelope bg-blue"></i>
+    </div>
+    </div>
+    {% for page_num in posts.iter_pages() %}
+    {% if page_num %}
+        {% if posts.page == page_num %}
+            <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+            <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>            
+        {% endif %}    
+    {% else %}
+        ...
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock content %}
